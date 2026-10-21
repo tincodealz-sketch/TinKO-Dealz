@@ -16,6 +16,108 @@ section.content{padding:30px 0 48px}.kicker{font-size:11px;color:#c39aff;letter-
 .overlay{display:none;position:fixed;inset:0;background:#000b;z-index:30}.overlay.open{display:block}.drawer{position:absolute;right:0;top:0;height:100%;overflow:auto;width:min(430px,100%);padding:22px;background:#100c18;border-left:1px solid #58416f}.drawerhead{display:flex;justify-content:space-between;align-items:center}.close{border:0;border-radius:8px;background:#2a2036;color:white;padding:9px 12px}.line{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid #352443;font-size:13px}.line small{display:block;color:var(--muted);margin-top:5px}.remove{background:none;border:0;color:#ff83ba;font-size:11px}.total{display:flex;justify-content:space-between;font-size:18px;font-weight:900;padding:18px 0}.field{width:100%;padding:12px;margin:6px 0;border:1px solid #4c385e;border-radius:10px;background:#1a1425;color:white}.checkout{width:100%;margin-top:8px}.empty{color:var(--muted);font-size:13px;padding:20px 0}
 @media(max-width:780px){.nav{gap:10px}.links{display:none}.brand img{width:50px;height:50px}.brand strong{font-size:17px}.hero{padding:42px 0}.hero-grid{grid-template-columns:1fr}.art{height:310px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.benefits{grid-template-columns:1fr}.banner{align-items:flex-start;flex-direction:column}}
 @media(max-width:470px){.wrap{width:92%}.brand small{font-size:8px}.brand strong{font-size:15px}.cart{padding:10px;font-size:11px}.grid{gap:9px}.product-art{height:130px}.emoji{font-size:55px}.info{padding:11px}.info h3{font-size:14px}.desc{font-size:11px}.price{font-size:16px}.discount{display:none}.art{height:280px}.art img{width:140px;height:140px}.orbit{width:230px;height:230px}.float{padding:9px}.float b{font-size:10px}.float small{font-size:9px}}
+
+/* TinKO Dealz product details */
+.product-details-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.88);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.product-details-overlay.open {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.product-details-panel {
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
+  padding: 22px;
+  border: 1px solid #39313f;
+  border-radius: 18px;
+  background: #17131c;
+  color: #fff;
+}
+
+.product-details-close {
+  float: right;
+  background: #d92f43;
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 9px 13px;
+  cursor: pointer;
+}
+
+.product-details-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.product-details-gallery img {
+  width: 100%;
+  height: 110px;
+  object-fit: contain;
+  background: #24202b;
+  border: 1px solid #44384b;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.product-details-main-image {
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  background: #24202b;
+  border-radius: 12px;
+}
+
+.product-option-group {
+  margin: 18px 0;
+}
+
+.product-option-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.product-option-group select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: #24202b;
+  color: #fff;
+  border: 1px solid #66516e;
+}
+
+.product-details-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.product-details-actions button {
+  flex: 1;
+  min-width: 150px;
+  padding: 13px;
+  border: 0;
+  border-radius: 9px;
+  background: #d92f43;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -50,6 +152,23 @@ section.content{padding:30px 0 48px}.kicker{font-size:11px;color:#c39aff;letter-
   <section class="wrap banner" id="contact"><div><div class="kicker">Ready to order?</div><h2>Found your next favourite?</h2><p>Put items in your cart and send your order details to us on WhatsApp.</p></div><a class="btn" href="https://wa.me/94778801926" target="_blank" rel="noopener">Chat on WhatsApp ↗</a></section>
 </main>
 <footer><div class="wrap foot"><div class="footbrand"><img src="WhatsApp%20Image%202026-10-20%20at%2020.15.50.jpeg" alt=""> TinKO Dealz</div><div>Anime · Collectibles · More</div><div>© <span id="year"></span> TinKO Dealz · Sri Lanka</div></div></footer>
+
+<div class="product-details-overlay" id="productDetailsOverlay" onclick="if(event.target===this)closeProductDetails()">
+  <div class="product-details-panel">
+    <button type="button" class="product-details-close" onclick="closeProductDetails()">✕ Close</button>
+    <h2 id="detailsName">Product details</h2>
+    <img id="detailsMainImage" class="product-details-main-image" src="" alt="Product photo">
+    <div id="detailsGallery" class="product-details-gallery"></div>
+    <p id="detailsDescription"></p>
+    <h2 id="detailsPrice"></h2>
+    <div id="detailsOptions"></div>
+    <div class="product-details-actions">
+      <button type="button" onclick="addSelectedProductToCart()">＋ Add to cart</button>
+      <button type="button" onclick="closeProductDetails()">Continue shopping</button>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="overlay" onclick="if(event.target===this)closeCart()"><aside class="drawer"><div class="drawerhead"><h2>Your cart</h2><button class="close" onclick="closeCart()">✕</button></div><div id="cartItems"></div><div class="total"><span>Total</span><span id="total">LKR 0</span></div>
 <input class="field" id="name" placeholder="Your name"><input class="field" id="phone" placeholder="Phone number"><textarea class="field" id="address" rows="3" placeholder="Delivery address (or write collection)"></textarea><select class="field" id="payment"><option>Cash on delivery</option><option>Bank transfer</option><option>Collection</option></select><button class="btn checkout" onclick="checkout()">Send order on WhatsApp</button><p class="sub">Your order opens in WhatsApp for you to review and send. No online payment is collected here.</p></aside></div>
 <script>
@@ -78,10 +197,195 @@ const products=[
 
 ];
 let cart=[];const fmt=n=>"LKR "+Number(n).toLocaleString("en-LK");
-function render(filter="All"){document.getElementById("productsGrid").innerHTML=products.filter(p=>filter==="All"||p.category===filter).map(p=>`<article class="product"><div class="product-art"><span class="tag">${p.tag}</span><img src="${p.image}" alt="${p.name}" style="width:100%;height:130px;object-fit:contain;display:block;"></div><div class="info"><div class="category">${p.category}</div><h3>${p.name}</h3><div class="desc">${p.desc}</div><div class="prices"><span class="price">${fmt(p.price)}</span><span class="old">${fmt(p.old)}</span><span class="discount">${Math.round((1-p.price/p.old)*100)}% OFF</span></div><button class="add" onclick="add(${p.id})">＋ Add to cart</button></div></article>`).join("")}
+
+let selectedProduct = null;
+let selectedOptions = {};
+
+function openProductDetails(id) {
+  selectedProduct = products.find(p => p.id === id);
+  if (!selectedProduct) return;
+
+  selectedOptions = {};
+
+  document.getElementById("detailsName").textContent = selectedProduct.name;
+  document.getElementById("detailsDescription").textContent = selectedProduct.desc;
+  document.getElementById("detailsPrice").textContent = fmt(selectedProduct.price);
+
+  const mainImage = document.getElementById("detailsMainImage");
+  mainImage.src = selectedProduct.image;
+  mainImage.alt = selectedProduct.name;
+
+  const gallery = document.getElementById("detailsGallery");
+  gallery.innerHTML = "";
+
+  [selectedProduct.image, ...(selectedProduct.images || [])]
+    .filter((src, index, arr) => src && arr.indexOf(src) === index)
+    .forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = selectedProduct.name;
+      img.onclick = () => {
+        mainImage.src = src;
+      };
+      gallery.appendChild(img);
+    });
+
+  const options = document.getElementById("detailsOptions");
+  options.innerHTML = "";
+
+  const variantMap = {
+    2: { "Colour": ["Pink", "White", "Blue", "Green", "Yellow", "Gray"] },
+    3: { "Design": ["Ask us for available designs"] },
+    5: { "Character": ["Mitsuri", "Tengen", "Nezuko", "Tanjiro"] },
+    6: { "Character": ["Obanai", "Mitsuri", "Tengen", "Sanemi", "Kanao", "Shinobu", "Rengoku", "Zenitsu", "Nezuko", "Inosuke", "Giyu"] },
+    7: { "Colour": ["White", "Black", "Purple", "Gray"] },
+    8: { "Character": ["Itachi", "Pain", "Konan", "Kakuzu", "Zetsu", "Kisame", "Tobi", "Deidara", "Naruto"] },
+    9: { "Design": ["Ask us for available designs"] },
+    10: { "Design": ["Ask us for available designs"] },
+    11: { "Colour": ["Steel", "Golden", "Steel and golden"] },
+    15: { "Character": ["Light Yagami", "L (Lawliet)", "Misa Amane", "Ryuk"] }
+  };
+
+  const variants = variantMap[selectedProduct.id] || {};
+
+  Object.entries(variants).forEach(([label, values]) => {
+    const group = document.createElement("div");
+    group.className = "product-option-group";
+
+    const title = document.createElement("label");
+    title.textContent = label;
+    group.appendChild(title);
+
+    const select = document.createElement("select");
+    select.required = true;
+
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "Choose " + label.toLowerCase();
+    placeholder.selected = true;
+    select.appendChild(placeholder);
+
+    values.forEach(value => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+
+    select.onchange = () => {
+      selectedOptions[label] = select.value;
+    };
+
+    group.appendChild(select);
+    options.appendChild(group);
+  });
+
+  document.getElementById("productDetailsOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeProductDetails() {
+  document.getElementById("productDetailsOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function addSelectedProductToCart() {
+  if (!selectedProduct) return;
+
+  const variantMap = {
+    2: ["Colour"], 3: ["Design"], 5: ["Character"],
+    6: ["Character"], 7: ["Colour"], 8: ["Character"],
+    9: ["Design"], 10: ["Design"], 11: ["Colour"], 15: ["Character"]
+  };
+
+  const required = variantMap[selectedProduct.id] || [];
+  for (const label of required) {
+    if (!selectedOptions[label]) {
+      alert("Please choose " + label.toLowerCase() + " first.");
+      return;
+    }
+  }
+
+  const key = JSON.stringify(selectedOptions);
+  const existing = cart.find(item =>
+    item.id === selectedProduct.id &&
+    JSON.stringify(item.options || {}) === key
+  );
+
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({
+      ...selectedProduct,
+      options: { ...selectedOptions },
+      qty: 1
+    });
+  }
+
+  update();
+  closeProductDetails();
+  openCart();
+}
+
+
+function render(filter="All"){
+  document.getElementById("productsGrid").innerHTML=products
+    .filter(p=>filter==="All"||p.category===filter)
+    .map(p=>`
+      <article class="product">
+        <div class="product-art">
+          <span class="tag">${p.tag}</span>
+          <img src="${p.image}" alt="${p.name}"
+            style="width:100%;height:130px;object-fit:contain;display:block;cursor:pointer"
+            onclick="openProductDetails(${p.id})">
+        </div>
+        <div class="info">
+          <div class="category">${p.category}</div>
+          <h3 style="cursor:pointer" onclick="openProductDetails(${p.id})">${p.name}</h3>
+          <div class="desc">${p.desc}</div>
+          <div class="prices">
+            <span class="price">${fmt(p.price)}</span>
+            <span class="old">${fmt(p.old)}</span>
+            <span class="discount">${Math.round((1-p.price/p.old)*100)}% OFF</span>
+          </div>
+          <button class="add" onclick="openProductDetails(${p.id})">View details & options</button>
+        </div>
+      </article>
+    `).join("");
+}
+
+function update(){
+  document.getElementById("cartCount").textContent =
+    cart.reduce((s,x)=>s+x.qty,0);
+
+  document.getElementById("total").textContent =
+    fmt(cart.reduce((s,x)=>s+x.price*x.qty,0));
+
+  document.getElementById("cartItems").innerHTML = cart.length
+    ? cart.map(x => {
+        const options = Object.entries(x.options || {})
+          .filter(([key,value]) => value)
+          .map(([key,value]) => `${key}: ${value}`)
+          .join(", ");
+
+        return `<div class="line">
+          <div>
+            <b>${x.name} × ${x.qty}</b>
+            ${options ? `<small>${options}</small>` : ""}
+            <small>${fmt(x.price)} each</small>
+          </div>
+          <div>
+            <b>${fmt(x.price*x.qty)}</b><br>
+            <button class="remove" onclick="removeItem(${x.id})">Remove</button>
+          </div>
+        </div>`;
+      }).join("")
+    : '<div class="empty">Your cart is empty. Add a few favourites first 💜</div>';
+}
+  
 function add(id){let p=cart.find(x=>x.id===id);if(p)p.qty++;else cart.push({...products.find(x=>x.id===id),qty:1});update();openCart()}
 function removeItem(id){cart=cart.filter(x=>x.id!==id);update()}
-function update(){document.getElementById("cartCount").textContent=cart.reduce((s,x)=>s+x.qty,0);document.getElementById("total").textContent=fmt(cart.reduce((s,x)=>s+x.price*x.qty,0));document.getElementById("cartItems").innerHTML=cart.length?cart.map(x=>`<div class="line"><div><b>${x.name} × ${x.qty}</b><small>${fmt(x.price)} each</small></div><div><b>${fmt(x.price*x.qty)}</b><br><button class="remove" onclick="removeItem(${x.id})">Remove</button></div></div>`).join(""):'<div class="empty">Your cart is empty. Add a few favourites first 💜</div>'}
+
 function openCart(){document.getElementById("overlay").classList.add("open");document.body.style.overflow="hidden";update()}function closeCart(){document.getElementById("overlay").classList.remove("open");document.body.style.overflow=""}
 
 
@@ -102,7 +406,13 @@ function checkout(){
   }
 
   const bankAccountNumber="041200170112672";
-  const items=cart.map(x=>`• ${x.name} × ${x.qty} — ${fmt(x.price*x.qty)}`).join("\n");
+ const items=cart.map(x=>{
+  const options=Object.entries(x.options||{})
+    .filter(([key,value])=>value)
+    .map(([key,value])=>`${key}: ${value}`)
+    .join(", ");
+  return `• ${x.name}${options ? " ("+options+")" : ""} × ${x.qty} — ${fmt(x.price*x.qty)}`;
+}).join("\n");
   const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
 
   const isBankTransfer=payment==="Bank transfer";
