@@ -84,16 +84,17 @@ function removeItem(id){cart=cart.filter(x=>x.id!==id);update()}
 function update(){document.getElementById("cartCount").textContent=cart.reduce((s,x)=>s+x.qty,0);document.getElementById("total").textContent=fmt(cart.reduce((s,x)=>s+x.price*x.qty,0));document.getElementById("cartItems").innerHTML=cart.length?cart.map(x=>`<div class="line"><div><b>${x.name} × ${x.qty}</b><small>${fmt(x.price)} each</small></div><div><b>${fmt(x.price*x.qty)}</b><br><button class="remove" onclick="removeItem(${x.id})">Remove</button></div></div>`).join(""):'<div class="empty">Your cart is empty. Add a few favourites first 💜</div>'}
 function openCart(){document.getElementById("overlay").classList.add("open");document.body.style.overflow="hidden";update()}function closeCart(){document.getElementById("overlay").classList.remove("open");document.body.style.overflow=""}
 
+
 function checkout(){
   if(!cart.length){
     alert("Your cart is empty — add an item first.");
     return;
   }
 
-  let name=document.getElementById("name").value.trim();
-  let phone=document.getElementById("phone").value.trim();
-  let address=document.getElementById("address").value.trim();
-  let payment=document.getElementById("payment").value;
+  const name=document.getElementById("name").value.trim();
+  const phone=document.getElementById("phone").value.trim();
+  const address=document.getElementById("address").value.trim();
+  const payment=document.getElementById("payment").value;
 
   if(!name||!phone||!address){
     alert("Please fill in your name, phone number and address (or write collection).");
@@ -101,24 +102,24 @@ function checkout(){
   }
 
   const bankAccountNumber="041200170112672";
+  const items=cart.map(x=>`• ${x.name} × ${x.qty} — ${fmt(x.price*x.qty)}`).join("\n");
+  const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
 
-  if(payment==="Bank transfer" && bankAccountNumber==="ENTER_YOUR_ACCOUNT_NUMBER_HERE"){
-    alert("Please enter your People's Bank account number in the code first.");
-    return;
-  }
+  const isBankTransfer=payment==="Bank transfer";
+  const isCollection=payment==="Collection";
 
-  let items=cart.map(x=>`• ${x.name} × ${x.qty} — ${fmt(x.price*x.qty)}`).join("\n");
-  let total=cart.reduce((s,x)=>s+x.price*x.qty,0);
-
-  let bankInfo=payment==="Bank transfer"
-    ? `\n\nPEOPLE'S BANK TRANSFER DETAILS\nAccount holder: Rithikshana Abhilash Jayasundara\nAccount number: ${bankAccountNumber}\nPlease transfer the amount above and send your payment receipt to TinKO Dealz for verification.`
+  const bankInfo=isBankTransfer
+    ? `\n🏦 Bank: People's Bank\n👤 Account Holder: Rithikshana Abhilash Jayasundara\n🔢 Account Number: ${bankAccountNumber}`
     : "";
 
-  let msg=`Hello TinKO Dealz! I'd like to place an order:\n\n${items}\n\nTotal (items only): ${fmt(total)}\nName: ${name}\nPhone: ${phone}\nAddress / collection: ${address}\nPayment: ${payment}${bankInfo}\n\nPlease confirm availability and delivery fee.`;
+  const amountLabel=isBankTransfer
+    ? `\n\n💰 *Amount for items: ${fmt(total)}*\nPlease confirm the item's availability and delivery fee before I complete the payment. I will send the payment receipt once the transfer is completed.`
+    : `\n\n💰 *Subtotal: ${fmt(total)}*\nPlease confirm the item's availability and delivery fee.`;
+
+  const msg=`❤️ *TIN𝗞𝗢 DEALZ | ORDER REQUEST* 🛍️\n\nHello TinKO Dealz! 👋\nI'd like to place an order with your store. Please find my order details below.\n\n━━━━━━━━━━━━━━━━━━\n📦 *ORDER SUMMARY*\n${items}\n${amountLabel}\n\n━━━━━━━━━━━━━━━━━━\n👤 *CUSTOMER DETAILS*\n• Name: ${name}\n• Phone: ${phone}\n• ${isCollection ? "Collection" : "Delivery Address"}: ${address}\n\n━━━━━━━━━━━━━━━━━━\n💳 *PAYMENT METHOD: ${payment.toUpperCase()}*${isBankTransfer ? "\n\n" + bankInfo : ""}\n\n━━━━━━━━━━━━━━━━━━\n🙏 Thank you! Looking forward to your confirmation.\n❤️ *TinKO Dealz — Your Favourite Anime & Accessories Store*`;
 
   window.open("https://wa.me/94778801926?text="+encodeURIComponent(msg),"_blank","noopener");
 }
-
 document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-filter]").forEach(x=>x.classList.remove("active"));b.classList.add("active");render(b.dataset.filter)}));document.getElementById("year").textContent=new Date().getFullYear();render();update();
 </script>
 </body></html>
