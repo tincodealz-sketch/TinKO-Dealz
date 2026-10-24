@@ -832,15 +832,20 @@ function buySelectedProductNow() {
   }
 
   const quantityInput = document.getElementById("detailsQuantity");
-  const quantity = 1;
-
-  if (quantityInput) {
-    quantityInput.value = quantity;
-  }
+  if (quantityInput) quantityInput.value = 1;
 
   addSelectedProductToCart();
-}
 
+  const cartButton = document.querySelector(
+    'button[onclick="openCart()"]'
+  );
+
+  if (cartButton) {
+    openCart();
+  } else {
+    alert("Item added to cart. Please open your cart to complete checkout.");
+  }
+}
 
   const variantMap = {
     2: ["Colour"], 3: ["Design"], 5: ["Character"],
