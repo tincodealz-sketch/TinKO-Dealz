@@ -4,6 +4,53 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090710">
 <title>TinKO Dealz | Anime, Collectibles & More</title>
+  
+/* TINKO DEALZ - MANGA WORLD THEME */
+:root {
+  --line: #51346f;
+  --purple: #bd83ff;
+  --pink: #f0b8ff;
+}
+
+.kicker,
+.category {
+  color: #d9b5ff;
+}
+
+.product {
+  border-color: #49345c;
+  background: linear-gradient(145deg, #191421, #0d0a13);
+}
+
+.product:hover {
+  border-color: #bd83ff;
+  box-shadow: 0 0 18px #9b5cff30;
+}
+
+.product-art {
+  border-bottom: 1px solid #49345c;
+}
+
+.filter {
+  border-color: #49345c;
+}
+
+.filter.active,
+.filter:hover {
+  background: #7136b8;
+  border-color: #bd83ff;
+}
+
+.product-details-panel {
+  border-color: #8e5bc4;
+}
+
+@media (max-width: 600px) {
+  .product:hover {
+    transform: none;
+  }
+}
+
 <style>
 :root{--bg:#090710;--card:#15111f;--line:#352443;--text:#faf6ff;--muted:#bcb1ca;--purple:#a46bff;--pink:#ff559e}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#32184c,transparent 50%),var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}.wrap{width:min(1120px,92%);margin:auto}
