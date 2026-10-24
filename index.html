@@ -972,4 +972,9 @@ function checkout(){
 }
 document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-filter]").forEach(x=>x.classList.remove("active"));b.classList.add("active");render(b.dataset.filter)}));document.getElementById("year").textContent=new Date().getFullYear();render();update();
 </script>
+<!-- Cloudflare Web Analytics -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js'
+data-cf-beacon='{"token": "YOUR_TOKEN_HERE"}'></script>
+<!-- End Cloudflare Web Analytics -->
+</body>  
 </body></html>
