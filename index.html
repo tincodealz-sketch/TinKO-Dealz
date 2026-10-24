@@ -805,18 +805,25 @@ if (
   return;
 }
   
-function changeProductQty(change) {
-  if (!selectedProduct) return;
 
+window.changeProductQty = function(change) {
   const input = document.getElementById("detailsQuantity");
-  const max = Number(selectedProduct.stock) || 0;
+
+  if (!input || !selectedProduct) return;
+
+  const stock = Number(selectedProduct.stock) || 0;
   const current = Number(input.value) || 1;
 
-  input.max = max;
-  input.value = max > 0
-    ? Math.max(1, Math.min(max, current + change))
-    : 1;
-}
+  if (stock < 1) {
+    input.value = 1;
+    return;
+  }
+
+  const next = current + Number(change);
+  input.value = Math.max(1, Math.min(stock, next));
+  input.max = stock;
+};
+
 
 function buySelectedProductNow() {
   addSelectedProductToCart();
