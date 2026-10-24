@@ -826,6 +826,18 @@ window.changeProductQty = function(change) {
 
 
 function buySelectedProductNow() {
+  if (!selectedProduct) {
+    alert("Please select a product first.");
+    return;
+  }
+
+  const quantityInput = document.getElementById("detailsQuantity");
+  const quantity = 1;
+
+  if (quantityInput) {
+    quantityInput.value = quantity;
+  }
+
   addSelectedProductToCart();
 }
 
