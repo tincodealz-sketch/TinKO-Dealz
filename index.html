@@ -122,6 +122,15 @@ margin: 6px 0 8px;
   cursor: pointer;
   padding: 5px;
 }
+}
+  width: 100%;
+  height: 110px;
+  object-fit: contain;
+  background: #24202b;
+  border: 1px solid #44384b;
+  border-radius: 10px;
+  cursor: pointer;
+}
 
 .product-details-gallery img {
   display: block;
@@ -437,11 +446,10 @@ header {
 
 .product-details-panel {
   width: 100% !important;
-  max-width: 760px !important;
-  max-height: 90vh !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  padding: 14px !important;
+  max-width: 1050px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 26px !important;
   margin: auto !important;
   border-radius: 20px !important;
   background: linear-gradient(145deg,#160c25,#0c0914) !important;
@@ -449,14 +457,14 @@ header {
 
 .product-details-close {
   float: right;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .detail-layout {
   clear: both;
   display: grid;
   grid-template-columns: minmax(0,1.05fr) minmax(0,0.95fr);
-  gap: 16px;
+  gap: 32px;
   align-items: start;
 }
 
@@ -468,8 +476,8 @@ header {
 .product-details-main-image {
   display: block !important;
   width: 100% !important;
-  height: 220px !important;
-  max-height: 220px !important;
+  height: 410px !important;
+  max-height: 410px !important;
   object-fit: contain !important;
   background: #f8f6fb;
   border-radius: 14px;
@@ -501,26 +509,26 @@ header {
 
 .detail-info { min-width: 0; padding-top: 14px; }
 .detail-breadcrumb { color: #c084fc; font-size: 11px; letter-spacing: .12em; margin-bottom: 16px; }
-.detail-info h2#detailsName { font-size: 22px; line-height: 1.25; margin: 6px 0 8px; }
+.detail-info h2#detailsName { font-size: 27px; line-height: 1.25; margin: 8px 0 12px; }
 .detail-rating { color: #f6c75c; font-size: 14px; }
 .detail-rating span { color: #c4b5d9; font-size: 11px; }
 .detail-stock { color: #b9f5cd; font-weight: 800; }
-.detail-info #detailsDescription { color: #c4b5d9; font-size: 13px; line-height: 1.5; margin: 8px 0; }
+.detail-info #detailsDescription { color: #c4b5d9; font-size: 14px; line-height: 1.7; margin: 16px 0; }
 
 .detail-price-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin: 18px 0; }
 .detail-price-row #detailsPrice { font-size: 29px !important; color: #fff; margin: 0 !important; }
 .detail-old-price { color: #a99bb6; text-decoration: line-through; font-size: 15px; }
 
-.detail-quantity { margin: 10px 0; }
+.detail-quantity { margin: 20px 0; }
 .detail-quantity label { display: block; font-size: 13px; font-weight: 800; margin-bottom: 9px; }
 .quantity-control { display: flex; align-items: center; gap: 0; width: max-content; border: 1px solid #69418d; border-radius: 10px; overflow: hidden; }
 .quantity-control button { width: 40px; height: 40px; color: white; background: #28163b; border: 0; font-size: 20px; }
 .quantity-control input { width: 54px; height: 40px; text-align: center; color: white; background: #130d1e; border: 0; }
-.product-details-actions { display: flex !important; gap: 8px !important; margin: 10px 0 !important; }
+.product-details-actions { display: flex !important; gap: 10px !important; margin: 18px 0 !important; }
 .product-details-actions button { min-height: 46px; flex: 1; font-size: 13px; border-radius: 10px; }
 
-.detail-trust { border: 1px solid #4b315f; border-radius: 12px; margin-top: 10px; overflow: hidden; }
-.detail-trust > div { display: flex; gap: 12px; padding: 9px; border-bottom: 1px solid #392747; }
+.detail-trust { border: 1px solid #4b315f; border-radius: 12px; margin-top: 22px; overflow: hidden; }
+.detail-trust > div { display: flex; gap: 12px; padding: 14px; border-bottom: 1px solid #392747; }
 .detail-trust > div:last-child { border-bottom: 0; }
 .detail-trust b, .detail-trust small { display: block; }
 .detail-trust b { font-size: 13px; }
@@ -565,6 +573,55 @@ nav a, .kicker, .category {
 .product {
   border: 2px solid #49345c;
 } 
+
+/* ===== TINKO DEALZ LAYOUT FIX: CENTERED, BALANCED, RESPONSIVE ===== */
+html { overflow-x: hidden; }
+body { width: 100%; overflow-x: hidden; }
+.wrap {
+  width: min(1240px, calc(100% - 48px));
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+header .wrap,
+main > section .wrap,
+footer .wrap {
+  width: min(1240px, calc(100% - 48px));
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.hero { padding: 58px 0 48px; }
+.hero-grid { gap: clamp(24px, 3vw, 42px); }
+section.content { padding: 34px 0 56px; }
+.grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+.product { min-width: 0; }
+.info h3 { overflow-wrap: anywhere; }
+.product-art img { max-width: 100%; }
+@media (max-width: 1000px) {
+  .wrap, header .wrap, main > section .wrap, footer .wrap {
+    width: min(100% - 36px, 900px);
+  }
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 780px) {
+  .wrap, header .wrap, main > section .wrap, footer .wrap {
+    width: calc(100% - 28px);
+  }
+  .hero { padding: 38px 0 32px; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .links { display: none; }
+}
+@media (max-width: 420px) {
+  .wrap, header .wrap, main > section .wrap, footer .wrap {
+    width: calc(100% - 22px);
+  }
+  .grid { gap: 9px; }
+  .info { padding: 10px; }
+}
+
 </style>
 </head>
 <body>
@@ -1040,4 +1097,5 @@ document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click"
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js'
 data-cf-beacon='{"token": "2c57fadb06a24fcfa501e2e09a918eb9"}'></script>
 <!-- End Cloudflare Web Analytics -->
+</body>  
 </body></html>
