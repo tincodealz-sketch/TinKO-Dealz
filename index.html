@@ -393,6 +393,114 @@ header {
     gap: 9px;
   }
 }
+
+/* TinKO Dealz - professional product detail layout */
+.product-details-overlay {
+  padding: 18px !important;
+  overflow-y: auto !important;
+  align-items: flex-start !important;
+}
+
+.product-details-panel {
+  width: 100% !important;
+  max-width: 1050px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 26px !important;
+  margin: auto !important;
+  border-radius: 20px !important;
+  background: linear-gradient(145deg,#160c25,#0c0914) !important;
+}
+
+.product-details-close {
+  float: right;
+  margin-bottom: 12px;
+}
+
+.detail-layout {
+  clear: both;
+  display: grid;
+  grid-template-columns: minmax(0,1.05fr) minmax(0,0.95fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.detail-photos {
+  min-width: 0;
+  padding-top: 12px;
+}
+
+.product-details-main-image {
+  display: block !important;
+  width: 100% !important;
+  height: 410px !important;
+  max-height: 410px !important;
+  object-fit: contain !important;
+  background: #f8f6fb;
+  border-radius: 14px;
+  margin: 0 auto !important;
+}
+
+.product-details-gallery {
+  display: grid !important;
+  grid-template-columns: repeat(4,minmax(0,1fr)) !important;
+  gap: 9px !important;
+  margin-top: 12px !important;
+}
+
+.product-details-gallery img {
+  height: 75px !important;
+  width: 100% !important;
+  object-fit: contain !important;
+  background: #24172f;
+  border: 1px solid #624080;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.detail-photo-note {
+  color: #bba9cf;
+  font-size: 12px;
+  text-align: center;
+}
+
+.detail-info { min-width: 0; padding-top: 14px; }
+.detail-breadcrumb { color: #c084fc; font-size: 11px; letter-spacing: .12em; margin-bottom: 16px; }
+.detail-info h2#detailsName { font-size: 27px; line-height: 1.25; margin: 8px 0 12px; }
+.detail-rating { color: #f6c75c; font-size: 14px; }
+.detail-rating span { color: #c4b5d9; font-size: 11px; }
+.detail-stock { color: #b9f5cd; font-weight: 800; }
+.detail-info #detailsDescription { color: #c4b5d9; font-size: 14px; line-height: 1.7; margin: 16px 0; }
+
+.detail-price-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin: 18px 0; }
+.detail-price-row #detailsPrice { font-size: 29px !important; color: #fff; margin: 0 !important; }
+.detail-old-price { color: #a99bb6; text-decoration: line-through; font-size: 15px; }
+
+.detail-quantity { margin: 20px 0; }
+.detail-quantity label { display: block; font-size: 13px; font-weight: 800; margin-bottom: 9px; }
+.quantity-control { display: flex; align-items: center; gap: 0; width: max-content; border: 1px solid #69418d; border-radius: 10px; overflow: hidden; }
+.quantity-control button { width: 40px; height: 40px; color: white; background: #28163b; border: 0; font-size: 20px; }
+.quantity-control input { width: 54px; height: 40px; text-align: center; color: white; background: #130d1e; border: 0; }
+.product-details-actions { display: flex !important; gap: 10px !important; margin: 18px 0 !important; }
+.product-details-actions button { min-height: 46px; flex: 1; font-size: 13px; border-radius: 10px; }
+
+.detail-trust { border: 1px solid #4b315f; border-radius: 12px; margin-top: 22px; overflow: hidden; }
+.detail-trust > div { display: flex; gap: 12px; padding: 14px; border-bottom: 1px solid #392747; }
+.detail-trust > div:last-child { border-bottom: 0; }
+.detail-trust b, .detail-trust small { display: block; }
+.detail-trust b { font-size: 13px; }
+.detail-trust small { color: #bba9cf; font-size: 11px; line-height: 1.6; margin-top: 4px; }
+
+@media(max-width:700px) {
+  .product-details-overlay { padding: 8px !important; }
+  .product-details-panel { padding: 14px !important; }
+  .detail-layout { grid-template-columns: 1fr; gap: 14px; }
+  .product-details-main-image { height: 280px !important; max-height: 280px !important; }
+  .detail-info { padding-top: 4px; }
+  .detail-info h2#detailsName { font-size: 23px; }
+  .detail-rating span { display: block; margin-top: 5px; }
+}
+  
 </style>
 </head>
 <body>
@@ -428,29 +536,56 @@ header {
 </main>
 <footer><div class="wrap foot"><div class="footbrand"><img src="WhatsApp%20Image%202026-10-20%20at%2020.15.50.jpeg" alt=""> TinKO Dealz</div><div>Anime · Collectibles · More</div><div>© <span id="year"></span> TinKO Dealz · Sri Lanka</div></div></footer>
 
+
 <div class="product-details-overlay" id="productDetailsOverlay" onclick="if(event.target===this)closeProductDetails()">
   <div class="product-details-panel">
     <button type="button" class="product-details-close" onclick="closeProductDetails()">✕ Close</button>
-    <h2 id="detailsName">Product details</h2>
-    <img id="detailsMainImage" class="product-details-main-image" src="" alt="Product photo">
-    <div id="detailsGallery" class="product-details-gallery"></div>
-    <p id="detailsDescription"></p>
-    <p id="detailsStock" style="color:#c4b5d9;font-weight:bold"></p>
 
-<label for="detailsQuantity">Quantity:</label>
-<input id="detailsQuantity" type="number"
-       min="1" value="1"
-       style="width:80px;padding:8px;margin:8px;
-       background:#241333;color:white;border:1px solid #a855f7;
-       border-radius:8px">
-    <h2 id="detailsPrice"></h2>
-    <div id="detailsOptions"></div>
-    <div class="product-details-actions">
-      <button type="button" onclick="qty: requestedQty">＋ Add to cart</button>
-      <button type="button" onclick="closeProductDetails()">Continue shopping</button>
+    <div class="detail-layout">
+      <div class="detail-photos">
+        <img id="detailsMainImage" class="product-details-main-image" src="" alt="Product photo">
+        <div id="detailsGallery" class="product-details-gallery"></div>
+        <p class="detail-photo-note">More product photos will be added soon 💜</p>
+      </div>
+
+      <div class="detail-info">
+        <div class="detail-breadcrumb">TIN𝗞𝗢 DEALZ / SHOP</div>
+        <h2 id="detailsName">Product name</h2>
+        <p class="detail-rating">★★★★★ <span>Customer favourite · Contact us for help</span></p>
+        <p id="detailsStock" class="detail-stock"></p>
+        <p id="detailsDescription"></p>
+
+        <div class="detail-price-row">
+          <h2 id="detailsPrice"></h2>
+          <span id="detailsOldPrice" class="detail-old-price"></span>
+        </div>
+
+        <div id="detailsOptions"></div>
+
+        <div class="detail-quantity">
+          <label for="detailsQuantity">Quantity</label>
+          <div class="quantity-control">
+            <button type="button" onclick="changeProductQty(-1)">−</button>
+            <input id="detailsQuantity" type="number" min="1" value="1">
+            <button type="button" onclick="changeProductQty(1)">+</button>
+          </div>
+        </div>
+
+        <div class="product-details-actions">
+          <button type="button" onclick="addSelectedProductToCart()">🛒 Add to cart</button>
+          <button type="button" onclick="buySelectedProductNow()">Buy Now ↗</button>
+        </div>
+
+        <div class="detail-trust">
+          <div>🚚 <span><b>Islandwide delivery</b><small>Delivery fee and timing confirmed before dispatch.</small></span></div>
+          <div>💳 <span><b>Flexible payments</b><small>Cash on delivery or bank transfer.</small></span></div>
+          <div>💜 <span><b>Need help?</b><small>Contact TinKO Dealz before placing your order.</small></span></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
 
 <div class="overlay" id="overlay" onclick="if(event.target===this)closeCart()"><aside class="drawer"><div class="drawerhead"><h2>Your cart</h2><button class="close" onclick="closeCart()">✕</button></div><div id="cartItems"></div><div class="total"><span>Total</span><span id="total">LKR 0</span></div>
 <input class="field" id="name" placeholder="Your name"><input class="field" id="phone" placeholder="Phone number"><textarea class="field" id="address" rows="3" placeholder="Delivery address (or write collection)"></textarea><select class="field" id="payment"><option>Cash on delivery</option><option>Bank transfer</option><option>Collection</option></select><button class="btn checkout" onclick="checkout()">Send order on WhatsApp</button><p class="sub">Your order opens in WhatsApp for you to review and send. No online payment is collected here.</p></aside></div>
@@ -568,6 +703,15 @@ document.getElementById("detailsQuantity").max =
 document.getElementById("detailsQuantity").disabled =
   selectedProduct.stock <= 0;
   document.getElementById("detailsPrice").textContent = fmt(selectedProduct.price);
+  
+document.getElementById("detailsOldPrice").textContent =
+  selectedProduct.old ? fmt(selectedProduct.old) : "";
+
+document.getElementById("detailsStock").textContent =
+  selectedProduct.stock > 0
+    ? "📦 In stock: " + selectedProduct.stock + " available"
+    : "❌ Currently out of stock";
+
 
   const mainImage = document.getElementById("detailsMainImage");
   mainImage.src = selectedProduct.image;
@@ -660,6 +804,24 @@ if (
   alert("Please enter a valid quantity within available stock.");
   return;
 }
+  
+function changeProductQty(change) {
+  if (!selectedProduct) return;
+
+  const input = document.getElementById("detailsQuantity");
+  const max = Number(selectedProduct.stock) || 0;
+  const current = Number(input.value) || 1;
+
+  input.max = max;
+  input.value = max > 0
+    ? Math.max(1, Math.min(max, current + change))
+    : 1;
+}
+
+function buySelectedProductNow() {
+  addSelectedProductToCart();
+}
+
 
   const variantMap = {
     2: ["Colour"], 3: ["Design"], 5: ["Character"],
