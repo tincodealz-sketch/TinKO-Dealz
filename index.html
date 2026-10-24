@@ -435,10 +435,18 @@ header {
     <img id="detailsMainImage" class="product-details-main-image" src="" alt="Product photo">
     <div id="detailsGallery" class="product-details-gallery"></div>
     <p id="detailsDescription"></p>
+    <p id="detailsStock" style="color:#c4b5d9;font-weight:bold"></p>
+
+<label for="detailsQuantity">Quantity:</label>
+<input id="detailsQuantity" type="number"
+       min="1" value="1"
+       style="width:80px;padding:8px;margin:8px;
+       background:#241333;color:white;border:1px solid #a855f7;
+       border-radius:8px">
     <h2 id="detailsPrice"></h2>
     <div id="detailsOptions"></div>
     <div class="product-details-actions">
-      <button type="button" onclick="addSelectedProductToCart()">＋ Add to cart</button>
+      <button type="button" onclick="qty: requestedQty">＋ Add to cart</button>
       <button type="button" onclick="closeProductDetails()">Continue shopping</button>
     </div>
   </div>
@@ -549,6 +557,16 @@ function openProductDetails(id) {
 
   document.getElementById("detailsName").textContent = selectedProduct.name;
   document.getElementById("detailsDescription").textContent = selectedProduct.desc;
+  document.getElementById("detailsStock").textContent =
+  selectedProduct.stock > 0
+    ? "📦 In stock: " + selectedProduct.stock + " available"
+    : "❌ Currently out of stock";
+
+document.getElementById("detailsQuantity").value = 1;
+document.getElementById("detailsQuantity").max =
+  selectedProduct.stock;
+document.getElementById("detailsQuantity").disabled =
+  selectedProduct.stock <= 0;
   document.getElementById("detailsPrice").textContent = fmt(selectedProduct.price);
 
   const mainImage = document.getElementById("detailsMainImage");
@@ -631,6 +649,17 @@ function closeProductDetails() {
 
 function addSelectedProductToCart() {
   if (!selectedProduct) return;
+  const quantityInput = document.getElementById("detailsQuantity");
+const requestedQty = Number(quantityInput.value);
+
+if (
+  !Number.isInteger(requestedQty) ||
+  requestedQty < 1 ||
+  requestedQty > selectedProduct.stock
+) {
+  alert("Please enter a valid quantity within available stock.");
+  return;
+}
 
   const variantMap = {
     2: ["Colour"], 3: ["Design"], 5: ["Character"],
@@ -653,7 +682,11 @@ function addSelectedProductToCart() {
   );
 
   if (existing) {
-    existing.qty++;
+    if (existing.qty + requestedQty > selectedProduct.stock) {
+  alert("Not enough stock available for that quantity.");
+  return;
+}
+existing.qty += requestedQty;
   } else {
     cart.push({
       ...selectedProduct,
