@@ -791,70 +791,45 @@ function closeProductDetails() {
   document.body.style.overflow = "";
 }
 
-function addSelectedProductToCart() {
-  if (!selectedProduct) return;
-  const quantityInput = document.getElementById("detailsQuantity");
-const requestedQty = Number(quantityInput.value);
 
-if (
-  !Number.isInteger(requestedQty) ||
-  requestedQty < 1 ||
-  requestedQty > selectedProduct.stock
-) {
-  alert("Please enter a valid quantity within available stock.");
-  return;
-}
-  
-
-window.changeProductQty = function(change) {
+function changeProductQty(change) {
   const input = document.getElementById("detailsQuantity");
-
   if (!input || !selectedProduct) return;
 
   const stock = Number(selectedProduct.stock) || 0;
+  if (stock < 1) return;
+
   const current = Number(input.value) || 1;
-
-  if (stock < 1) {
-    input.value = 1;
-    return;
-  }
-
-  const next = current + Number(change);
-  input.value = Math.max(1, Math.min(stock, next));
+  input.value = Math.max(1, Math.min(stock, current + change));
   input.max = stock;
-};
+}
 
-
-function buySelectedProductNow() {
+function addSelectedProductToCart() {
   if (!selectedProduct) {
     alert("Please select a product first.");
     return;
   }
 
-  const quantityInput = document.getElementById("detailsQuantity");
-  if (quantityInput) quantityInput.value = 1;
+  const input = document.getElementById("detailsQuantity");
+  const qty = Number(input.value);
 
-  addSelectedProductToCart();
-
-  const cartButton = document.querySelector(
-    'button[onclick="openCart()"]'
-  );
-
-  if (cartButton) {
-    openCart();
-  } else {
-    alert("Item added to cart. Please open your cart to complete checkout.");
+  if (
+    !Number.isInteger(qty) ||
+    qty < 1 ||
+    qty > Number(selectedProduct.stock)
+  ) {
+    alert("Please enter a valid quantity within available stock.");
+    return;
   }
-}
 
   const variantMap = {
     2: ["Colour"], 3: ["Design"], 5: ["Character"],
     6: ["Character"], 7: ["Colour"], 8: ["Character"],
-    9: ["Design"], 10: ["Design"], 11: ["Colour"], 15: ["Character"]
+    9: ["Design"], 10: ["Design"], 11: ["Colour"],
+    15: ["Character"]
   };
 
-  const required = variantMap[selectedProduct.id] || [];
-  for (const label of required) {
+  for (const label of (variantMap[selectedProduct.id] || [])) {
     if (!selectedOptions[label]) {
       alert("Please choose " + label.toLowerCase() + " first.");
       return;
@@ -868,16 +843,16 @@ function buySelectedProductNow() {
   );
 
   if (existing) {
-    if (existing.qty + requestedQty > selectedProduct.stock) {
-  alert("Not enough stock available for that quantity.");
-  return;
-}
-existing.qty += requestedQty;
+    if (existing.qty + qty > selectedProduct.stock) {
+      alert("Not enough stock available for that quantity.");
+      return;
+    }
+    existing.qty += qty;
   } else {
     cart.push({
       ...selectedProduct,
       options: { ...selectedOptions },
-      qty: 1
+      qty: qty
     });
   }
 
@@ -885,6 +860,11 @@ existing.qty += requestedQty;
   closeProductDetails();
   openCart();
 }
+
+function buySelectedProductNow() {
+  addSelectedProductToCart();
+}
+
 
 
 function render(filter="All"){
