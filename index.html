@@ -650,6 +650,136 @@ img { max-width:100%; }
   .info { padding:8px; }
   .info h3 { font-size:12px; }
   .price { font-size:14px; }
+
+/* TINKO DEALZ — PREMIUM STORE REDESIGN */
+:root {
+  --bg: #08070d;
+  --line: #35204f;
+  --purple: #8b2bff;
+  --pink: #c77dff;
+  --text: #faf7ff;
+  --muted: #c7b9d8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: radial-gradient(ellipse at 50% 10%, #24113b 0%, #100b19 42%, #08070d 80%) !important;
+  color: var(--text) !important;
+  font-family: Inter, Arial, sans-serif !important;
+}
+
+header {
+  background: rgba(8, 7, 13, 0.94) !important;
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line) !important;
+}
+
+.topline {
+  background: linear-gradient(90deg, #8b2bff, #c77dff, #8b2bff) !important;
+  color: #fff !important;
+}
+
+.brand strong,
+h1, h2, h3 {
+  letter-spacing: -0.04em;
+}
+
+.brand img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hero {
+  padding-top: 64px !important;
+  padding-bottom: 54px !important;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 5vw, 68px) !important;
+  line-height: 1.04 !important;
+}
+
+.hero h1 span {
+  background: linear-gradient(90deg, #fff, #c77dff, #8b2bff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+}
+
+.art {
+  border: 1px solid #7040a0 !important;
+  border-radius: 28px !important;
+  background: radial-gradient(circle, #30134d, #100b19 70%) !important;
+  box-shadow: 0 20px 70px rgba(139, 43, 255, 0.14);
+}
+
+.btn,
+button {
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.btn {
+  border-radius: 12px !important;
+  background: linear-gradient(120deg, #8b2bff, #bd35e8) !important;
+  border: 1px solid #b66bff !important;
+  box-shadow: 0 8px 24px rgba(139, 43, 255, 0.18);
+}
+
+.btn:hover,
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(139, 43, 255, 0.25);
+}
+
+.product {
+  background: linear-gradient(145deg, #17121f, #0b0910) !important;
+  border: 1px solid #35204f !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.product:hover {
+  transform: translateY(-4px);
+  border-color: #8b2bff !important;
+  box-shadow: 0 14px 35px rgba(139, 43, 255, 0.16);
+}
+
+.product-art {
+  border-bottom: 1px solid #35204f !important;
+}
+
+.info,
+.product-details-panel {
+  background: #100b19 !important;
+  color: #faf7ff !important;
+  border-color: #49345c !important;
+}
+
+.category,
+.kicker {
+  color: #c77dff !important;
+}
+
+.price {
+  color: #e8b8ff !important;
+}
+
+input,
+select,
+textarea {
+  background: #100b19 !important;
+  color: #fff !important;
+  border-color: #49345c !important;
+}
+
+footer {
+  border-top: 1px solid #35204f !important;
+}
+
 }
 
 </style>
