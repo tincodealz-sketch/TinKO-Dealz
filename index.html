@@ -803,7 +803,35 @@ footer {
 .product .add {
   margin-top: 8px;
 }
+/* TinKO Dealz — align product cards and buttons */
+#productsGrid {
+  align-items: stretch !important;
+}
 
+#productsGrid .product {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#productsGrid .product .info {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+}
+
+#productsGrid .product .desc {
+  min-height: 5em !important;
+}
+
+#productsGrid .product .prices {
+  margin-top: auto !important;
+}
+
+#productsGrid .product .add {
+  margin-top: 12px !important;
+}
 
 </style>
 </head>
