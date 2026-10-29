@@ -832,7 +832,40 @@ footer {
 #productsGrid .product .add {
   margin-top: 12px !important;
 }
+/* TinKO Dealz: equal-height product cards */
+#productsGrid {
+  display: grid !important;
+  align-items: stretch !important;
+}
 
+#productsGrid .product {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+#productsGrid .product-art {
+  flex-shrink: 0 !important;
+}
+
+#productsGrid .product .info {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+}
+
+#productsGrid .product .desc {
+  min-height: 5em !important;
+}
+
+#productsGrid .product .prices {
+  margin-top: auto !important;
+}
+
+#productsGrid .product .add {
+  margin-top: 12px !important;
+}
 </style>
 </head>
 <body>
