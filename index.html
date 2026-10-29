@@ -779,7 +779,30 @@ textarea {
 footer {
   border-top: 1px solid #35204f !important;
 }
+/* FIX: Align product buttons evenly */
+.product {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
+.product .info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.product .desc {
+  flex: 1;
+}
+
+.product .prices {
+  margin-top: auto;
+}
+
+.product .add {
+  margin-top: 8px;
+}
 
 
 </style>
