@@ -1115,71 +1115,7 @@ footer {
   box-shadow: 0 0 55px #C6A04A30 !important;
 }
 
-.galaxy-ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  border: 2px solid #C6A04A80;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: zentroRing 18s linear infinite;
-}
 
-.ring-one { width: 300px; height: 300px; }
-.ring-two { width: 400px; height: 400px; animation-duration: 25s; }
-.ring-three { width: 490px; height: 490px; animation-duration: 35s; }
-
-.character-orbit {
-  position: absolute;
-  inset: 0;
-  animation: zentroOrbit 24s linear infinite;
-}
-
-.orbit-character {
-  position: absolute !important;
-  width: 92px !important;
-  height: 92px !important;
-  border: 3px solid #E8C873 !important;
-  border-radius: 50% !important;
-  object-fit: cover !important;
-  box-shadow: 0 0 25px #C6A04A90 !important;
-}
-
-.zenitsu { top: 5%; left: 50%; transform: translateX(-50%); }
-.kaneki { right: 3%; top: 50%; transform: translateY(-50%); }
-.goku { bottom: 5%; left: 50%; transform: translateX(-50%); }
-.gojo { left: 3%; top: 50%; transform: translateY(-50%); }
-
-.zentro-centre {
-  position: absolute !important;
-  z-index: 5;
-  left: 50%;
-  top: 50%;
-  width: 180px !important;
-  height: 180px !important;
-  transform: translate(-50%, -50%);
-  border-radius: 50% !important;
-  object-fit: contain !important;
-  border: 2px solid #C6A04A !important;
-  box-shadow: 0 0 45px #E8C87380 !important;
-}
-
-@keyframes zentroOrbit {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes zentroRing {
-  to { rotate: 360deg; }
-}
-
-@media (max-width: 780px) {
-  .art.galaxy { height: 380px !important; }
-  .ring-one { width: 220px; height: 220px; }
-  .ring-two { width: 290px; height: 290px; }
-  .ring-three { width: 360px; height: 360px; }
-  .orbit-character { width: 65px !important; height: 65px !important; }
-  .zentro-centre { width: 125px !important; height: 125px !important; }
-}
  
 /* More distance between characters and centre logo */
 .character-orbit {
