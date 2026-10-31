@@ -1020,6 +1020,45 @@ footer {
 .float small {
   color: #B9AE98 !important;
 }
+  /* ZENTRO - LIQUID GOLD PRODUCT BORDERS */
+
+@property --gold-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes zentroGoldFlow {
+  to {
+    --gold-angle: 360deg;
+  }
+}
+
+#productsGrid .product {
+  position: relative !important;
+  isolation: isolate;
+  border: 2px solid transparent !important;
+
+  background:
+    linear-gradient(145deg, #1C1C1C, #080808) padding-box,
+    conic-gradient(
+      from var(--gold-angle),
+      #8B692D,
+      #C6A04A,
+      #E8C873,
+      #FFF0B0,
+      #C6A04A,
+      #8B692D
+    ) border-box !important;
+
+  animation: zentroGoldFlow 5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #productsGrid .product {
+    animation: none;
+  }
+}
 </style>
 </head>
 <body>
